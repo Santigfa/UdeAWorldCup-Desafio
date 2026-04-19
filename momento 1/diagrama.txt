@@ -1,0 +1,123 @@
+┌─────────────────────────────────────────────────────────┐
+│                        Juego                            │
+├─────────────────────────────────────────────────────────┤
+│ - nivelActual: int                                      │
+│ - puntaje: int                                          │
+│ - medidor: Medidor*                                     │
+├─────────────────────────────────────────────────────────┤
+│ + iniciar(): void                                       │
+│ + cambiarNivel(int): void                               │
+│ + mostrarMenu(): void                                   │
+│ + terminar(): void                                      │
+│ + getNivelActual(): int                                 │
+│ + getPuntaje(): int                                     │
+│ + setPuntaje(int): void                                 │
+└───────────────────────────┬─────────────────────────────┘
+                            │ ◆ composición
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│                        Nivel                            │
+├─────────────────────────────────────────────────────────┤
+│ - numero: int                                           │
+│ - objetivos: Objetivo**                                 │
+│ - portales: Portal**                                    │
+│ - numObjetivos: int                                     │
+│ - numPortales: int                                      │
+├─────────────────────────────────────────────────────────┤
+│ + Nivel()                                               │
+│ + Nivel(const Nivel&) «copia»                           │
+│ + ~Nivel()                                              │
+│ + cargar(): void                                        │
+│ + actualizar(): void                                    │
+│ + estaCompleto(): bool                                  │
+└───────────────────────────┬─────────────────────────────┘
+                            │
+        ┌───────────────────┼───────────────────┐
+        ▼                   ▼                   ▼
+┌───────────────┐   ┌───────────────┐   ┌───────────────┐
+│   Jugador     │   │    Flecha     │   │    Portal     │
+├───────────────┤   ├───────────────┤   ├───────────────┤
+│ - fuerza: float│   │ - x: float    │   │ - x: float    │
+│ - angulo: float│   │ - y: float    │   │ - y: float    │
+│ - nombre: char*│   │ - vx: float   │   │ - xDest: float│
+├───────────────┤   │ - vy: float   │   │ - yDest: float│
+│ + Jugador()   │   │ - activa: bool│   ├───────────────┤
+│ + Jugador(    │   ├───────────────┤   │ + Portal()    │
+│   const       │   │ + Flecha()    │   │ + Portal(     │
+│   Jugador&)   │   │ + Flecha(     │   │   const       │
+│   «copia»     │   │   const       │   │   Portal&)    │
+│ + disparar(): │   │   Flecha&)    │   │   «copia»     │
+│   Flecha*     │   │   «copia»     │   │ + teletrans-  │
+│ + getFuerza():│   │ + actualizar( │   │   portar(     │
+│   float       │   │   float): void│   │   Flecha&):   │
+│ + setFuerza(  │   │ + aplicar-    │   │   void        │
+│   float): void│   │   Gravedad(): │   │ + getX():     │
+│ + getAngulo():│   │   void        │   │   float       │
+│   float       │   │ + getX():     │   │ + setX(float):│
+│ + setAngulo(  │   │   float       │   │   void        │
+│   float): void│   │ + getY():     │   │ + getY():     │
+│ + getNombre():│   │   float       │   │   float       │
+│   char*       │   │ + operator+(  │   │ + setY(float):│
+│ + setNombre(  │   │   const       │   │   void        │
+│   char*): void│   │   Flecha&):   │   └───────────────┘
+└───────────────┘   │   Flecha «op1»│
+                    │ + operator==( │
+                    │   const       │
+                    │   Flecha&):   │
+                    │   bool «op2»  │
+                    └───────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│                  Objetivo «abstract»                    │
+├─────────────────────────────────────────────────────────┤
+│ - x: float                                              │
+│ - y: float                                              │
+│ - radio: float                                          │
+│ - activo: bool                                          │
+├─────────────────────────────────────────────────────────┤
+│ + Objetivo()                                            │
+│ + Objetivo(const Objetivo&) «copia»                     │
+│ + destruir(): void                                      │
+│ + estaActivo(): bool                                    │
+│ + verificar(): void = 0                                 │
+│ + getX(): float                                         │
+│ + setX(float): void                                     │
+│ + getY(): float                                         │
+│ + setY(float): void                                     │
+└───────────────────────────┬─────────────────────────────┘
+                            │ △ herencia
+            ┌───────────────┴───────────────┐
+            ▼                               ▼
+┌───────────────────────┐   ┌───────────────────────────────┐
+│    ObjetivoFijo       │   │       ObjetivoMovil           │
+├───────────────────────┤   ├───────────────────────────────┤
+│ + verificar(): void   │   │ - velX: float                 │
+└───────────────────────┘   │ - velY: float                 │
+                            │ - limiteX: float              │
+                            │ - limiteY: float              │
+                            ├───────────────────────────────┤
+                            │ + mover(): void               │
+                            │ + verificar(): void           │
+                            └───────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│                       Medidor                           │
+├─────────────────────────────────────────────────────────┤
+│ - iteraciones: static long                              │
+│ - memoriaTotal: static size_t                           │
+├─────────────────────────────────────────────────────────┤
+│ + incrementarIteracion(): void                          │
+│ + asignarMemoria(size_t): void                          │
+│ + liberarMemoria(size_t): void                          │
+│ + reportar(): void                                      │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│                        Leyenda                          │
+├─────────────────────────────────────────────────────────┤
+│ ◆  = Composición (fuerte)                               │
+│ △  = Herencia                                           │
+│ ---→ = Dependencia / Asociación                         │
+│ «copia» = Constructor de copia                          │
+│ «op1» / «op2» = Operadores sobrecargados                │
+└─────────────────────────────────────────────────────────┘
