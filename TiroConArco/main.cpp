@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Flecha.h"
 #include "Jugador.h"
+#include "ObjetivoFijo.h"
 
 using namespace std;
 
@@ -20,6 +21,16 @@ int main()
         cout << "Y: " << f->getY() << endl;
         cout << "----------------" << endl;
     }
+
+    ObjetivoFijo obj;
+
+    obj.setX(20);
+    obj.setY(5);
+    obj.setRadio(2);
+
+    cout << "Objetivo X: " << obj.getX() << endl;
+    cout << "Objetivo Y: " << obj.getY() << endl;
+    cout << "Radio: " << obj.getRadio() << endl;
 
     delete f;
 

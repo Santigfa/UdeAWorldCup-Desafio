@@ -8,10 +8,12 @@ INCLUDEPATH += include
 HEADERS += \
     include/Flecha.h \
     include/Jugador.h \
-    include/Objetivo.h
+    include/Objetivo.h \
+    include/ObjetivoFijo.h
 
 SOURCES += \
     main.cpp \
     src/Flecha.cpp \
     src/Jugador.cpp \
-    src/Objetivo.cpp
+    src/Objetivo.cpp \
+    src/ObjetivoFijo.cpp
