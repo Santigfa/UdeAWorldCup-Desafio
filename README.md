@@ -28,3 +28,9 @@ Ejecutar el programa y seguir el menú:
 
 ## Autor
 Santiago Andrés Guzmán Fuentes
+
+## Enlaces
+
+Repositorio: https://github.com/Santigfa/UdeAWorldCup-Desafio
+
+Video: 
