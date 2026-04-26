@@ -33,4 +33,4 @@ Santiago Andrés Guzmán Fuentes
 
 Repositorio: https://github.com/Santigfa/UdeAWorldCup-Desafio
 
-Video: 
+Video: https://www.youtube.com/watch?v=akwt9e4fZlE
